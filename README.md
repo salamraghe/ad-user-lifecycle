@@ -1,5 +1,7 @@
 # AD User Lifecycle Lab
 
+Hands-on lab, Sep 2026.
+
 Ticket-style Active Directory user lifecycle on a real Windows Server 2022 domain controller: create users, reset password (lab notes), assign group access, disable a leaver, document membership.
 
 Screenshots only prove what is listed. Entra and Okta live in other repos.
