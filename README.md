@@ -38,6 +38,9 @@ Screenshots only prove what is listed. Entra and Okta live in other repos.
 - [Promote review: lab.local / LAB](screenshots/03-review-options-lab-local.png)
 - [Prerequisites check passed](screenshots/04-prerequisites-check-passed.png)
 - [Local Server: Domain lab.local, AD DS + DNS](screenshots/05-local-server-domain-lab-local.png)
+
+  ![Local Server: Domain lab.local, AD DS + DNS](hero/05-local-server-domain-lab-local.png)
+
 - [ADUC open on lab.local](screenshots/06-aduc-lab-local.png)
 - [ADUC default containers](screenshots/07-aduc-containers.png)
 
@@ -46,11 +49,23 @@ Screenshots only prove what is listed. Entra and Okta live in other repos.
 - [Server Manager: AD DS + DNS healthy](screenshots/08-server-manager-ad-ds-dns.png)
 - [OU LabUsers created](screenshots/09-ou-labusers.png)
 - [testuser in LabUsers](screenshots/10-testuser-in-labusers.png)
+
+  ![testuser in LabUsers](hero/10-testuser-in-labusers.png)
+
 - [LabUsers: Leaver User + testuser](screenshots/11-labusers-both-users.png)
 - [Lab-Access-Group General: Global Security](screenshots/12-lab-access-group-general.png)
 - [Lab-Access-Group Members: testuser](screenshots/13-group-members-testuser.png)
+
+  ![Lab-Access-Group Members: testuser](hero/13-group-members-testuser.png)
+
 - [Leaver User disabled confirmation](screenshots/14-leaver-disabled.png)
+
+  ![Leaver User disabled confirmation](hero/14-leaver-disabled.png)
+
 - [testuser Member Of: Lab-Access-Group](screenshots/15-testuser-member-of-lab-access-group.png)
+
+  ![testuser Member Of: Lab-Access-Group](hero/15-testuser-member-of-lab-access-group.png)
+
 
 ## What was built
 
