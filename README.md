@@ -31,7 +31,9 @@ Screenshots only prove what is listed. Entra and Okta live in other repos.
 | Group | **Lab-Access-Group** — Global, Security, in LabUsers; member **testuser** |
 | Access proof | testuser **Member Of** → Lab-Access-Group |
 
-## Screenshots (17 Sep 2026 foundation)
+## Screenshots
+
+### Screenshots (17 Sep 2026 foundation)
 
 - [VirtualBox: ADDC01 created](screenshots/01-vbox-addc01-created.png)
 - [Windows Server 2022 ISO download](screenshots/02-windows-server-2022-iso-download.png)
@@ -44,7 +46,7 @@ Screenshots only prove what is listed. Entra and Okta live in other repos.
 - [ADUC open on lab.local](screenshots/06-aduc-lab-local.png)
 - [ADUC default containers](screenshots/07-aduc-containers.png)
 
-## Screenshots (18 Sep 2026 lifecycle)
+### Screenshots (18 Sep 2026 lifecycle)
 
 - [Server Manager: AD DS + DNS healthy](screenshots/08-server-manager-ad-ds-dns.png)
 - [OU LabUsers created](screenshots/09-ou-labusers.png)
@@ -141,3 +143,7 @@ Stop there. Entra IAM and Okta are other repos.
 | 2026-09-18 ~3:55–3:58 PM PT | Lab-Access-Group created (Global Security); testuser added as member |
 | 2026-09-18 ~4:00 PM PT | Leaver User disabled |
 | 2026-09-18 ~4:08 PM PT | testuser Member Of Lab-Access-Group (final access proof) |
+
+## Stop there
+
+Entra, Okta, CyberKy/LLDAP, and CyberArk are other sittings / other repos. This package covers AD user lifecycle only.
