@@ -1,8 +1,8 @@
 # AD User Lifecycle Lab
 
-Hands-on lab, Sep 2026.
+Hands-on lab, Sep-Oct 2026.
 
-Ticket-style Active Directory user lifecycle on a real Windows Server 2022 domain controller: create users, reset password (lab notes), assign group access, disable a leaver, document membership.
+Ticket-style Active Directory user lifecycle on a real Windows Server 2022 domain controller: create users, reset password (lab notes), assign group access, move a user to a new role, disable a leaver, document membership: the full joiner / mover / leaver lifecycle.
 
 Screenshots only prove what is listed. Entra and Okta live in other repos.
 
@@ -16,6 +16,7 @@ Screenshots only prove what is listed. Entra and Okta live in other repos.
 | 4 | Security group **Lab-Access-Group**; add **testuser**; Member Of proof | Done (18 Sep 2026) |
 | 5 | Disable **Leaver User** | Done (18 Sep 2026) |
 | 6 | Password reset on Test User | Lab notes only — no clean dialog shot without a visible password field |
+| 7 | Mover: testuser moved to finance role, granted **Finance-Users**, removed **Lab-Access-Group** | Done (19 Oct 2026) |
 
 ## Environment
 
@@ -29,7 +30,9 @@ Screenshots only prove what is listed. Entra and Okta live in other repos.
 | OU | **LabUsers** |
 | Users | **testuser** (active); **Leaver User** (disabled after offboard) |
 | Group | **Lab-Access-Group** — Global, Security, in LabUsers; member **testuser** |
-| Access proof | testuser **Member Of** → Lab-Access-Group |
+| Access proof | testuser **Member Of** → Lab-Access-Group (Sep 18) |
+| Mover group | **Finance-Users** — Global, Security, in LabUsers (19 Oct 2026) |
+| Access after move | testuser **Member Of** → Domain Users + Finance-Users only |
 
 ## Screenshots
 
@@ -68,6 +71,16 @@ Screenshots only prove what is listed. Entra and Okta live in other repos.
 
   ![testuser Member Of: Lab-Access-Group](hero/15-testuser-member-of-lab-access-group.png)
 
+### Screenshots (19 Oct 2026 mover)
+
+- [testuser Member Of before move: Domain Users + Lab-Access-Group](screenshots/19-testuser-member-of-before-move.png) (cropped to the VirtualBox window)
+- [Finance-Users created in LabUsers](screenshots/16-finance-users-created.png) (cropped to the VirtualBox window)
+
+  ![Finance-Users created in LabUsers](hero/16-finance-users-created.png)
+
+- [Select Groups: adding Finance-Users to testuser](screenshots/17-select-groups-finance-users.png)
+- [testuser Member Of after move: Domain Users + Finance-Users](screenshots/18-testuser-member-of-after-move.png)
+
 
 ## What was built
 
@@ -88,6 +101,26 @@ Screenshots only prove what is listed. Entra and Okta live in other repos.
 6. Practiced a password reset on Test User in the lab (no screenshot shipped — see gaps).
 7. Disabled **Leaver User**; AD DS confirmation: “Object Leaver User has been disabled.”
 8. Documented access from the user side: **testuser** → Member Of → **Lab-Access-Group**.
+
+## Mover (19 Oct 2026)
+
+Ticket-style, done ~1:35–1:46 PM PT on **ADDC01** (lab.local, VirtualBox). Goal: least privilege. When someone changes role they get the new role's access and lose the old one, so access doesn't pile up (privilege creep).
+
+1. **Request:** testuser is changing to a finance role.
+2. **Created** security group **Finance-Users** (Global, Security) in OU **LabUsers**.
+3. **Added** testuser to Finance-Users (testuser → Member Of → Add → Select Groups).
+4. **Removed** the old role access: **Lab-Access-Group**.
+5. **Verified** Member Of: **Domain Users** + **Finance-Users** (lab.local/LabUsers) only. Lab-Access-Group is gone.
+
+In my own words: "testuser is a person in the company that's moving to a finance role. I changed his job permissions to finance and removed his old role access to Lab-Access-Group. He doesn't need those since he's not in that role anymore, so he only has access to what he's supposed to."
+
+**Before (19 Oct 2026, ~1:35 PM PT):** testuser Member Of = Domain Users + Lab-Access-Group (old role access).
+
+![testuser Member Of before move: Domain Users + Lab-Access-Group](hero/19-testuser-member-of-before-move.png)
+
+**After (19 Oct 2026):** Finance-Users added; the empty space where Lab-Access-Group used to be shows it was removed.
+
+![testuser Member Of after move: Domain Users + Finance-Users](hero/18-testuser-member-of-after-move.png)
 
 ## How to redo it
 
@@ -111,6 +144,13 @@ Lifecycle:
 11. Right-click **Leaver User** → **Disable Account**. Confirm the AD DS message that the object was disabled. Icon shows the disabled overlay.
 12. Open **testuser** → **Member Of**. Expect **Domain Users** and **Lab-Access-Group**. That is the access-change proof for the ticket.
 
+Mover:
+
+13. Right-click LabUsers → **New** → **Group**. Name `Finance-Users`. Scope **Global**, type **Security**.
+14. Open **testuser** → **Member Of** → **Add** → type `Finance-Users` → Check Names → OK.
+15. Still on Member Of, select **Lab-Access-Group** → **Remove** → Yes → Apply.
+16. Confirm Member Of lists only **Domain Users** and **Finance-Users**.
+
 Docs: [Install AD DS](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-active-directory-domain-services--level-100-), [ADUC](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview).
 
 ## What broke / gaps
@@ -129,7 +169,8 @@ Walk this in ADUC on **ADDC01**, not a slide deck.
 2. **OU LabUsers:** empty, then users appear.
 3. **Users:** **testuser** active; **Leaver User** disabled (confirmation dialog + disabled icon).
 4. **Group:** **Lab-Access-Group** General = Global Security; Members = **testuser**.
-5. **Access:** open **testuser** → Member Of → **Lab-Access-Group**.
+5. **Access:** open **testuser** → Member Of → **Lab-Access-Group** (Sep 18 state).
+6. **Mover:** show **Finance-Users** in LabUsers, then testuser → Member Of → **Domain Users + Finance-Users** only; Lab-Access-Group removed.
 
 Stop there. Entra IAM and Okta are other repos.
 
@@ -143,6 +184,7 @@ Stop there. Entra IAM and Okta are other repos.
 | 2026-09-18 ~3:55–3:58 PM PT | Lab-Access-Group created (Global Security); testuser added as member |
 | 2026-09-18 ~4:00 PM PT | Leaver User disabled |
 | 2026-09-18 ~4:08 PM PT | testuser Member Of Lab-Access-Group (final access proof) |
+| 2026-10-19 ~1:35–1:46 PM PT | Mover: before Member Of (Domain Users + Lab-Access-Group); Finance-Users created; testuser added; Lab-Access-Group removed; Member Of = Domain Users + Finance-Users |
 
 ## Stop there
 
