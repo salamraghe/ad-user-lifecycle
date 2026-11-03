@@ -16,10 +16,6 @@ This is the joiner, mover, leaver ticket flow every help desk and IAM team runs,
 
 In my own words, on the Mover step: "testuser is a person in the company that's moving to a finance role. I changed his job permissions to finance and removed his old role access to Lab-Access-Group. He doesn't need those since he's not in that role anymore, so he only has access to what he's supposed to."
 
-*Interview line:*
-
-> "When testuser moved to Finance, I added him to Finance and removed his old Lab-Access-Group, so he only has access to what his new role needs."
-
 ## Key screenshots
 
 ![](key/01-domain-controller-lab-local.png)
